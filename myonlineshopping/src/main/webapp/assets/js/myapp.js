@@ -75,27 +75,23 @@ $(function() {
 						},
 							
 						{
-							data : 'id,',
+							data : 'id',
 							bSortable : false,
 							mRender : function(data, type, row){
 								var str = '';
-								str += '<a href="' + window.contextRoot + '/show/' + data + '/products" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;';
-								str += '<a href="' + window.contextRoot + '/cart/add/' + data + '/products" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+								str += '<a href="' + window.contextRoot + '/show/' + data 
+								+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;';
+								
+								if(row.quantity < 1){
+									str += '<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+								}else{
+									str += '<a href="' + window.contextRoot + '/cart/add/' + data 
+									+ '/product" class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
+								}
+								
 								return str;
 							}
 						}
-//							{
-//								data : 'id',
-//								bSortable : false,
-//								mRender : function(data, type, row) {
-//
-//									var str = '';
-//									str += '<a href="'
-//											+ window.contextRoot
-//											+ '/show/'
-//											+ data
-//											+ '/product" class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a> &#160;';
-//
 //									if (userRole !== 'ADMIN') {
 //										if (row.quantity < 1) {
 //											str += '<a href="javascript:void(0)" class="btn btn-success disabled"><span class="glyphicon glyphicon-shopping-cart"></span></a>';
@@ -114,12 +110,6 @@ $(function() {
 //												+ data
 //												+ '/product" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>';
 //									}
-//
-//									return str;
-//
-//								}
-//
-//							} 
 						]
 		});
 	}

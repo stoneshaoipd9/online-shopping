@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -19,19 +24,22 @@ public class Product {
 	
 	private String code; 
 	
+	@NotBlank(message="Please Enter the Product Name!")
 	private String name; 
-	
+
+	@NotBlank(message="Please Enter the Brand Name!")
 	private String brand; 
 
+	@NotBlank(message="Please Enter the Description!")
 	@JsonIgnore
 	private String description; 
 	
+	@Min(value=1, message="The Price Can't Less Than 1!")
 	@Column(name = "unit_price")
 	private double unitPrice; 
 	
 	private int quantity; 
 	
-	@JsonIgnore
 	@Column(name = "is_active")
 	private boolean active = true; 
 
@@ -47,9 +55,22 @@ public class Product {
 	
     private int views;
     
-    //Constructor
+    @Transient
+    private MultipartFile file;
     
-    public Product() {
+    
+    public MultipartFile getFile() {
+		return file;
+	}
+
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
+
+	//Constructor
+	public Product() {
     	this.code = "PRD" + UUID.randomUUID().toString().substring(26).toUpperCase();
     }
 
